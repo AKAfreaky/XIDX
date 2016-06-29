@@ -48,14 +48,14 @@ int usage(int code) {
     "  -e      idx pack(s) are event packs\n"
     "  -s      idx pack(s) are skeleton packs\n"
     "  -m      idx packs(s) are Medieval II packs, only applies when creating packs.\n"
-    "  -c      create. Uses '"DEFAULT_OUTPUT_FNAME"' as output file name by default.\n"
+    "  -c      create. Uses '" DEFAULT_OUTPUT_FNAME"' as output file name by default.\n"
     "  -x      extract\n"
     "  -t      list\n"
     "  -f      output file (output filename must follow)\n"
-    "          Omitting this option when creating packs is equivalent to '-f "DEFAULT_OUTPUT_FNAME"'\n"
+    "          Omitting this option when creating packs is equivalent to '-f " DEFAULT_OUTPUT_FNAME"'\n"
     "  -v      verbose output\n"
     "  -B      strips a given suffix from filenames when packing, adds it when extracting\n"
-    "  -b      short for '-B "DEFAULT_MANIP_SUFFIX"' for compatibility with XIDX prior to version 1.5\n"
+    "  -b      short for '-B " DEFAULT_MANIP_SUFFIX"' for compatibility with XIDX prior to version 1.5\n"
     "  -p      preserve paths; disable all implicit path mangling\n"
 #if PATH_SEP == '\\'
     "          This option does not disable replacing backslashes (\\) with slashes (/).\n"
@@ -411,7 +411,7 @@ int xidxShell::numargs( const char** args ){
 stack<char*> xidxShell::gettokens( char* str, const char* delim, bool quotes ){
     char** strp = &str;
     char* pstr;
-    char* (*tokenizer)( char**, const char*) = quotes ? &qstrsep : strsep;
+    char* (*tokenizer)( char**, const char*) = quotes ? &qstrsep : strsep_r;
     stack<char*> tokens;
     
     pstr = tokenizer( strp, delim );

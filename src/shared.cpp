@@ -164,7 +164,7 @@ char* stristr( const char* str, const char* sstr) {
     return NULL;               
 }
 //strtok replacement
-char* strsep( char** strp, const char* delim ) throw(){
+char* strsep_r( char** strp, const char* delim ) noexcept{
     if( !(*strp) ) return NULL;
     char* str = *strp;
     char* tmp = str;

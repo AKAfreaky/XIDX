@@ -37,7 +37,7 @@
 int getfilesize(FILE *); 
 char* getdpath(char*, bool fixup_slashes, bool find_data_path);
 char* stristr(const char*,const char*);
-char* strsep( char**, const char* ) throw();
+char* strsep_r( char** strp, const char* delim ) noexcept;
 char* qstrsep(char**, const char* );
 int   strrep( char*, int, int );
 bool  mkrdir(const char*);
@@ -178,9 +178,9 @@ class str{
             return tmp;
         }
         */
-        str operator+( str s ){
-            return this->operator+( s.data );
-        }        
+//        str operator+( str s ){
+//            return this->operator+( s.data );
+//        }        
         str& operator+=( const char* s ){
             unsigned int size = 1;
             if( data ) size += strlen( data );
