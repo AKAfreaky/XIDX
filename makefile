@@ -15,7 +15,7 @@ mingw_i586 = $(shell which i586-mingw32msvc-g++)
 mingw_i686 = $(shell which i686-w64-mingw32-g++)
 mingw_amd64 = $(shell which x86_64-w64-mingw32-g++)
 gpp = $(shell which g++)
-CFLAGS = -Wall -Os -s
+CFLAGS = -Wall -O3 -std=c++11 -stdlib=libc++
 STATICS= -static -static-libgcc -static-libstdc++
 
 build : bin $(SRC)
