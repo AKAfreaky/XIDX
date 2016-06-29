@@ -1,4 +1,4 @@
-This repository is not affiliated with the Europa Barbarorum Team, just a fork of the source provided.
+This repository is not affiliated with the Europa Barbarorum Team, just a fork of the source provided here: http://www.twcenter.net/forums/downloads.php?do=file&id=3559.
 
 ----------------------------------------------
 Rome- and Medieval II- Total War IDX packer/extractor
