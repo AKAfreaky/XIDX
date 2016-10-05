@@ -155,6 +155,7 @@ void idxSubFile::PrintFilename(){
     else {
         fputs(filename, stdout);
     }
+	printf("\n");
 }    
 bool idxSubFile::PrepareDataOut(){
     return true;
