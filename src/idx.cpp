@@ -398,6 +398,7 @@ bool idxFile::Extract(const char* filename, bool list){
 	}
     }
     CloseFiles();
+    fprintf(stderr, "Extracted %d file%s\n", success_count, success_count == 1 ? "" : "s");
     return success_count == numFiles;
 }
 
