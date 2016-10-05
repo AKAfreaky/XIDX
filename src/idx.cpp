@@ -286,49 +286,52 @@ idxFile::~idxFile(){
 
 
 bool idxFile::OpenFiles( const char* filename, const char* mode ){
-    int len = strlen(filename);
+    auto len = (int)strlen(filename);
     static const int max = MAGIC_LENGTH(DAT_SUFFIX) > MAGIC_LENGTH(IDX_SUFFIX) ? MAGIC_LENGTH(DAT_SUFFIX) : MAGIC_LENGTH(IDX_SUFFIX);
-    int s_len = max + len;
-    char p1[s_len];
-    char p2[s_len];
+    int s_len = max + len + 1;
+	
+	char* p1 = new char[s_len];
+    char* p2 = new char[s_len];
     
     memset(p1, '\0', s_len);
     memset(p2, '\0', s_len);
     
-    if(len > max) {
-	const char* suffix = filename + (len- max) * sizeof(char);
-	if ( strcasecmp(suffix, DAT_SUFFIX) == 0) {
-	   
-	    replace_suffix(filename, IDX_SUFFIX, len, p1);
-	    strcpy(p2, filename);
-	}
-	else {
-	    if(strcasecmp(suffix, IDX_SUFFIX)==0) {
-		strcpy(p1,filename);
-		replace_suffix(filename, DAT_SUFFIX, len, p2);
-	    }
-	    else {
-		append_suffix(filename, IDX_SUFFIX, len, p1);
-		append_suffix(filename, DAT_SUFFIX, len, p2);
-	    }
-	}
+    if(len > max){
+		const char* suffix = filename + (len- max) * sizeof(char);
+		if ( strcasecmp(suffix, DAT_SUFFIX) == 0) {
+		   
+			replace_suffix(filename, IDX_SUFFIX, len, p1);
+			strcpy(p2, filename);
+		}
+		else if(strcasecmp(suffix, IDX_SUFFIX)==0) {
+			strcpy(p1,filename);
+			replace_suffix(filename, DAT_SUFFIX, len, p2);
+		}
+		else {
+			append_suffix(filename, IDX_SUFFIX, len, p1);
+			append_suffix(filename, DAT_SUFFIX, len, p2);
+		}
     }
     else {
-	append_suffix(filename, IDX_SUFFIX, len, p1);
-	append_suffix(filename, DAT_SUFFIX, len, p2);
+		append_suffix(filename, IDX_SUFFIX, len, p1);
+		append_suffix(filename, DAT_SUFFIX, len, p2);
     }
     
     fp = fopen( p1, mode );
     if( fp == NULL ) {
         fprintf( stderr, "failed to open '%s'\n", p1 );
-	return false;
+		delete [] p1;
+		delete [] p2;
+		return false;
     }    
     fp2 = fopen( p2, mode );
     if( fp2 == NULL ){
         fprintf( stderr, "failed to open '%s'\n", p2 );
-	fclose( fp );
-	fp = NULL;
-	return false;
+		fclose( fp );
+		fp = NULL;
+		delete [] p1;
+		delete [] p2;
+		return false;
     }
     return true;
 }
