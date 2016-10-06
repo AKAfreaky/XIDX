@@ -19,8 +19,9 @@
 #include "main.h"
 #include "idx.h"
 #include "shared.h"
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
+#include <unistd.h>
 
 #define EXTRACT 1
 #define CREATE 2
@@ -330,7 +331,7 @@ int main( int argc, char* argv[] )
 			if( suffix )
 			{
 				suffix_pattern = argv[i];
-				suffix_len = strlen( suffix_pattern );
+				suffix_len = (int)strlen( suffix_pattern );
 				suffix = false;
 			}
 			else
@@ -373,6 +374,18 @@ int main( int argc, char* argv[] )
 	switch( function )
 	{
 		case EXTRACT:
+			
+			if( ofile != nullptr )
+			{
+				// Create if it doesn't exist
+				mkrdir(ofile);
+		
+				// Try to change the current dir to the passed in value
+				auto err = chdir(ofile);
+				if( err == -1 )
+					fprintf( stderr, "Failed to change CWD to '%s'\nDo you have the perms?\n", ofile);
+			}
+			
 			for( int i = 0; i < files.GetSize(); i++ )
 			{
 				fprintf( stderr, "Extracting files in '%s'...\n", files[i] );
